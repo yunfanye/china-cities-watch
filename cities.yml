@@ -83,7 +83,7 @@ cities:
   - {name: 兰州,     province: 甘肃,   path: cities/gansu/lanzhou,       priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
   - {name: 西宁,     province: 青海,   path: cities/qinghai/xining,      priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
   - {name: 银川,     province: 宁夏,   path: cities/ningxia/yinchuan,    priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
-  - {name: 乌鲁木齐, province: 新疆,   path: cities/xinjiang/urumqi,     priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 乌鲁木齐, province: 新疆,   path: cities/xinjiang/urumqi,     priority: P1, status: complete, completeness: 12, maintainer: Rome, last_update: "2026-08-31"}
 
   # ══ 港澳台 ════════════════════════════════════
   - {name: 香港,     province: 香港,   path: cities/hongkong,            priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
