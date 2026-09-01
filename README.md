@@ -90,7 +90,7 @@
 
 | 省份 | 城市 | 完整度 | 最后更新 |
 |------|------|:------:|:--------:|
-| 直辖市 | [上海](cities/shanghai) | 🔴 0/12 | — |
+| 直辖市 | [上海](cities/shanghai) | 🟢 12/12 | 2026-09-01 |
 | 江苏 | [南京](cities/jiangsu/nanjing) | 🔴 0/12 | — |
 | 江苏 | [苏州](cities/jiangsu/suzhou) | 🔴 0/12 | — |
 | 江苏 | [无锡](cities/jiangsu/wuxi) | 🔴 0/12 | — |
