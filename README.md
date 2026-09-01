@@ -69,7 +69,7 @@
 
 | 省份 | 城市 | 完整度 | 最后更新 |
 |------|------|:------:|:--------:|
-| 直辖市 | [北京](cities/beijing) | 🔴 0/12 | — |
+| 直辖市 | [北京](cities/beijing) | 🟢 12/12 | 2026-08-31 |
 | 直辖市 | [天津](cities/tianjin) | 🔴 0/12 | — |
 | 河北 | [石家庄](cities/hebei/shijiazhuang) | 🔴 0/12 | — |
 | 河北 | [唐山](cities/hebei/tangshan) | 🔴 0/12 | — |
