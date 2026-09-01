@@ -16,7 +16,7 @@
 
 cities:
   # ══ 华北 ══════════════════════════════════════
-  - {name: 北京,     province: 直辖市, path: cities/beijing,             priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 北京,     province: 直辖市, path: cities/beijing,             priority: P0, status: complete, completeness: 12, maintainer: Rome, last_update: "2026-08-31"}
   - {name: 天津,     province: 直辖市, path: cities/tianjin,             priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
   - {name: 石家庄,   province: 河北,   path: cities/hebei/shijiazhuang,  priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
   - {name: 唐山,     province: 河北,   path: cities/hebei/tangshan,      priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
@@ -31,7 +31,7 @@ cities:
   - {name: 哈尔滨,   province: 黑龙江, path: cities/heilongjiang/harbin,   priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
 
   # ══ 华东 ══════════════════════════════════════
-  - {name: 上海,     province: 直辖市, path: cities/shanghai,            priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 上海,     province: 直辖市, path: cities/shanghai,            priority: P0, status: complete, completeness: 12, maintainer: Rome, last_update: "2026-09-01"}
   - {name: 南京,     province: 江苏,   path: cities/jiangsu/nanjing,     priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
   - {name: 苏州,     province: 江苏,   path: cities/jiangsu/suzhou,      priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
   - {name: 无锡,     province: 江苏,   path: cities/jiangsu/wuxi,        priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
