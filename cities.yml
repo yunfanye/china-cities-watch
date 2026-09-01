@@ -1,8 +1,9 @@
 # 城市登记表 —— 城市清单与状态的唯一权威来源（source of truth）
+# 覆盖全部 34 个省级行政区（23 省含台湾、5 自治区、4 直辖市、2 特别行政区）的主要城市，共 64 城。
+# 所有城市骨架已预先生成在 cities/ 下，agent 无需建档，直接认领填写。
 #
 # status 取值:
-#   unclaimed    未认领
-#   scaffolded   已建档（骨架已生成，数据未填）
+#   scaffolded   骨架已生成，数据未填（初始状态）
 #   in-progress  有 agent 正在填写/更新（maintainer 必须非空）
 #   complete     12 个维度全部完成
 #   stale        数据过期，等待刷新
@@ -10,66 +11,84 @@
 # 认领方式: 将 status 改为 in-progress 并填写 maintainer（如 agent-xiamen-2026q3）。
 # 若 maintainer 非空且 last_update 在 30 天内，视为他人正在工作，请换城市。
 #
-# tier: 一线 | 新一线 | 二线（参考通行分级，仅作优先级参考）
-# priority: P0 首批 | P1 扩展批次
+# priority: P0 优先填写 | P1 其后
+# completeness: 已完成维度数 0-12，与城市 meta.yml 保持一致
 
 cities:
-  # ── 直辖市 ──────────────────────────────────────
-  - {name: 北京,   province: 直辖市, path: cities/beijing,   tier: 一线,   priority: P0, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 上海,   province: 直辖市, path: cities/shanghai,  tier: 一线,   priority: P0, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 天津,   province: 直辖市, path: cities/tianjin,   tier: 新一线, priority: P0, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 重庆,   province: 直辖市, path: cities/chongqing, tier: 新一线, priority: P0, status: unclaimed, maintainer: null, last_update: null}
+  # ══ 华北 ══════════════════════════════════════
+  - {name: 北京,     province: 直辖市, path: cities/beijing,             priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 天津,     province: 直辖市, path: cities/tianjin,             priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 石家庄,   province: 河北,   path: cities/hebei/shijiazhuang,  priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 唐山,     province: 河北,   path: cities/hebei/tangshan,      priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 太原,     province: 山西,   path: cities/shanxi/taiyuan,      priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 呼和浩特, province: 内蒙古, path: cities/neimenggu/hohhot,    priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 包头,     province: 内蒙古, path: cities/neimenggu/baotou,    priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
 
-  # ── 广东 ────────────────────────────────────────
-  - {name: 广州,   province: 广东, path: cities/guangdong/guangzhou, tier: 一线,   priority: P0, status: unclaimed,  maintainer: null, last_update: null}
-  - {name: 深圳,   province: 广东, path: cities/guangdong/shenzhen,  tier: 一线,   priority: P0, status: scaffolded, maintainer: null, last_update: null}
-  - {name: 东莞,   province: 广东, path: cities/guangdong/dongguan,  tier: 新一线, priority: P0, status: unclaimed,  maintainer: null, last_update: null}
-  - {name: 佛山,   province: 广东, path: cities/guangdong/foshan,    tier: 新一线, priority: P0, status: unclaimed,  maintainer: null, last_update: null}
-  - {name: 珠海,   province: 广东, path: cities/guangdong/zhuhai,    tier: 二线,   priority: P1, status: unclaimed,  maintainer: null, last_update: null}
+  # ══ 东北 ══════════════════════════════════════
+  - {name: 沈阳,     province: 辽宁,   path: cities/liaoning/shenyang,     priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 大连,     province: 辽宁,   path: cities/liaoning/dalian,       priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 长春,     province: 吉林,   path: cities/jilin/changchun,       priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 哈尔滨,   province: 黑龙江, path: cities/heilongjiang/harbin,   priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
 
-  # ── 江苏 ────────────────────────────────────────
-  - {name: 南京,   province: 江苏, path: cities/jiangsu/nanjing,   tier: 新一线, priority: P0, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 苏州,   province: 江苏, path: cities/jiangsu/suzhou,    tier: 新一线, priority: P0, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 无锡,   province: 江苏, path: cities/jiangsu/wuxi,      tier: 二线,   priority: P1, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 常州,   province: 江苏, path: cities/jiangsu/changzhou, tier: 二线,   priority: P1, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 徐州,   province: 江苏, path: cities/jiangsu/xuzhou,    tier: 二线,   priority: P1, status: unclaimed, maintainer: null, last_update: null}
+  # ══ 华东 ══════════════════════════════════════
+  - {name: 上海,     province: 直辖市, path: cities/shanghai,            priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 南京,     province: 江苏,   path: cities/jiangsu/nanjing,     priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 苏州,     province: 江苏,   path: cities/jiangsu/suzhou,      priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 无锡,     province: 江苏,   path: cities/jiangsu/wuxi,        priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 常州,     province: 江苏,   path: cities/jiangsu/changzhou,   priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 南通,     province: 江苏,   path: cities/jiangsu/nantong,     priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 徐州,     province: 江苏,   path: cities/jiangsu/xuzhou,      priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 杭州,     province: 浙江,   path: cities/zhejiang/hangzhou,   priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 宁波,     province: 浙江,   path: cities/zhejiang/ningbo,     priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 温州,     province: 浙江,   path: cities/zhejiang/wenzhou,    priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 嘉兴,     province: 浙江,   path: cities/zhejiang/jiaxing,    priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 合肥,     province: 安徽,   path: cities/anhui/hefei,         priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 芜湖,     province: 安徽,   path: cities/anhui/wuhu,          priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 福州,     province: 福建,   path: cities/fujian/fuzhou,       priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 厦门,     province: 福建,   path: cities/fujian/xiamen,       priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 泉州,     province: 福建,   path: cities/fujian/quanzhou,     priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 南昌,     province: 江西,   path: cities/jiangxi/nanchang,    priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 济南,     province: 山东,   path: cities/shandong/jinan,      priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 青岛,     province: 山东,   path: cities/shandong/qingdao,    priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 烟台,     province: 山东,   path: cities/shandong/yantai,     priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
 
-  # ── 浙江 ────────────────────────────────────────
-  - {name: 杭州,   province: 浙江, path: cities/zhejiang/hangzhou, tier: 新一线, priority: P0, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 宁波,   province: 浙江, path: cities/zhejiang/ningbo,   tier: 新一线, priority: P0, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 温州,   province: 浙江, path: cities/zhejiang/wenzhou,  tier: 二线,   priority: P1, status: unclaimed, maintainer: null, last_update: null}
+  # ══ 中南 ══════════════════════════════════════
+  - {name: 郑州,     province: 河南,   path: cities/henan/zhengzhou,       priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 洛阳,     province: 河南,   path: cities/henan/luoyang,         priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 武汉,     province: 湖北,   path: cities/hubei/wuhan,           priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 宜昌,     province: 湖北,   path: cities/hubei/yichang,         priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 长沙,     province: 湖南,   path: cities/hunan/changsha,        priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 广州,     province: 广东,   path: cities/guangdong/guangzhou,   priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 深圳,     province: 广东,   path: cities/guangdong/shenzhen,    priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 东莞,     province: 广东,   path: cities/guangdong/dongguan,    priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 佛山,     province: 广东,   path: cities/guangdong/foshan,      priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 珠海,     province: 广东,   path: cities/guangdong/zhuhai,      priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 惠州,     province: 广东,   path: cities/guangdong/huizhou,     priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 南宁,     province: 广西,   path: cities/guangxi/nanning,       priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 桂林,     province: 广西,   path: cities/guangxi/guilin,        priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 海口,     province: 海南,   path: cities/hainan/haikou,         priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 三亚,     province: 海南,   path: cities/hainan/sanya,          priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
 
-  # ── 福建 ────────────────────────────────────────
-  - {name: 福州,   province: 福建, path: cities/fujian/fuzhou,   tier: 二线, priority: P0, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 厦门,   province: 福建, path: cities/fujian/xiamen,   tier: 二线, priority: P0, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 泉州,   province: 福建, path: cities/fujian/quanzhou, tier: 二线, priority: P0, status: unclaimed, maintainer: null, last_update: null}
+  # ══ 西南 ══════════════════════════════════════
+  - {name: 重庆,     province: 直辖市, path: cities/chongqing,           priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 成都,     province: 四川,   path: cities/sichuan/chengdu,     priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 绵阳,     province: 四川,   path: cities/sichuan/mianyang,    priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 贵阳,     province: 贵州,   path: cities/guizhou/guiyang,     priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 昆明,     province: 云南,   path: cities/yunnan/kunming,      priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 大理,     province: 云南,   path: cities/yunnan/dali,         priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 拉萨,     province: 西藏,   path: cities/xizang/lhasa,        priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
 
-  # ── 山东 ────────────────────────────────────────
-  - {name: 青岛,   province: 山东, path: cities/shandong/qingdao, tier: 新一线, priority: P0, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 济南,   province: 山东, path: cities/shandong/jinan,   tier: 二线,   priority: P1, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 烟台,   province: 山东, path: cities/shandong/yantai,  tier: 二线,   priority: P1, status: unclaimed, maintainer: null, last_update: null}
+  # ══ 西北 ══════════════════════════════════════
+  - {name: 西安,     province: 陕西,   path: cities/shaanxi/xian,        priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 兰州,     province: 甘肃,   path: cities/gansu/lanzhou,       priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 西宁,     province: 青海,   path: cities/qinghai/xining,      priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 银川,     province: 宁夏,   path: cities/ningxia/yinchuan,    priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 乌鲁木齐, province: 新疆,   path: cities/xinjiang/urumqi,     priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
 
-  # ── 中西部核心 ──────────────────────────────────
-  - {name: 成都,   province: 四川, path: cities/sichuan/chengdu,  tier: 新一线, priority: P0, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 武汉,   province: 湖北, path: cities/hubei/wuhan,      tier: 新一线, priority: P0, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 长沙,   province: 湖南, path: cities/hunan/changsha,   tier: 新一线, priority: P0, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 西安,   province: 陕西, path: cities/shaanxi/xian,     tier: 新一线, priority: P0, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 郑州,   province: 河南, path: cities/henan/zhengzhou,  tier: 新一线, priority: P0, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 合肥,   province: 安徽, path: cities/anhui/hefei,      tier: 新一线, priority: P0, status: unclaimed, maintainer: null, last_update: null}
-
-  # ── 东北 ────────────────────────────────────────
-  - {name: 大连,   province: 辽宁,   path: cities/liaoning/dalian,      tier: 二线, priority: P1, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 沈阳,   province: 辽宁,   path: cities/liaoning/shenyang,    tier: 二线, priority: P1, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 哈尔滨, province: 黑龙江, path: cities/heilongjiang/harbin,  tier: 二线, priority: P1, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 长春,   province: 吉林,   path: cities/jilin/changchun,      tier: 二线, priority: P1, status: unclaimed, maintainer: null, last_update: null}
-
-  # ── 其他省会与重点城市 ──────────────────────────
-  - {name: 石家庄, province: 河北, path: cities/hebei/shijiazhuang, tier: 二线, priority: P1, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 太原,   province: 山西, path: cities/shanxi/taiyuan,     tier: 二线, priority: P1, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 南昌,   province: 江西, path: cities/jiangxi/nanchang,   tier: 二线, priority: P1, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 昆明,   province: 云南, path: cities/yunnan/kunming,     tier: 二线, priority: P1, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 贵阳,   province: 贵州, path: cities/guizhou/guiyang,    tier: 二线, priority: P1, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 南宁,   province: 广西, path: cities/guangxi/nanning,    tier: 二线, priority: P1, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 海口,   province: 海南, path: cities/hainan/haikou,      tier: 二线, priority: P1, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 兰州,   province: 甘肃, path: cities/gansu/lanzhou,      tier: 二线, priority: P1, status: unclaimed, maintainer: null, last_update: null}
-  - {name: 乌鲁木齐, province: 新疆, path: cities/xinjiang/urumqi,  tier: 二线, priority: P1, status: unclaimed, maintainer: null, last_update: null}
+  # ══ 港澳台 ════════════════════════════════════
+  - {name: 香港,     province: 香港,   path: cities/hongkong,            priority: P0, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 澳门,     province: 澳门,   path: cities/macau,               priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 台北,     province: 台湾,   path: cities/taiwan/taipei,       priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 新竹,     province: 台湾,   path: cities/taiwan/hsinchu,      priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 台中,     province: 台湾,   path: cities/taiwan/taichung,     priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}
+  - {name: 高雄,     province: 台湾,   path: cities/taiwan/kaohsiung,    priority: P1, status: scaffolded, completeness: 0, maintainer: null, last_update: null}

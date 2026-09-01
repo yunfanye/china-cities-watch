@@ -1,0 +1,21 @@
+# 机器可读的维度级更新状态。与各维度文件头部状态行、cities.yml 保持一致。
+# status: empty | partial | complete | stale
+city: "上海"
+province: "直辖市"
+created: "2026-08-31"
+maintainer: null
+last_update: null
+completeness: 0   # 已完成（complete）的维度数，0-12
+dimensions:
+  "01-economy":     {status: empty, updated: null, data_year: null}
+  "02-industry":    {status: empty, updated: null, data_year: null}
+  "03-income":      {status: empty, updated: null, data_year: null}
+  "04-housing":     {status: empty, updated: null, data_year: null}
+  "05-population":  {status: empty, updated: null, data_year: null}
+  "06-transport":   {status: empty, updated: null, data_year: null}
+  "07-education":   {status: empty, updated: null, data_year: null}
+  "08-healthcare":  {status: empty, updated: null, data_year: null}
+  "09-environment": {status: empty, updated: null, data_year: null}
+  "10-governance":  {status: empty, updated: null, data_year: null}
+  "11-lifestyle":   {status: empty, updated: null, data_year: null}
+  "12-policy":      {status: empty, updated: null, data_year: null}

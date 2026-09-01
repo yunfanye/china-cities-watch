@@ -1,6 +1,6 @@
 # 中国主要城市观察（China Major Cities Watch）
 
-一个持续维护的中国主要城市结构化信息库，覆盖 **经济、产业、收入、房产、人口、交通、教育、医疗、环境、治理、生活方式、政策** 十二个维度，按省份组织，由 AI agents 定期收集与更新。
+一个持续维护的中国主要城市结构化信息库，覆盖 **经济、产业、收入、房产、人口、交通、教育、医疗、环境、治理、生活方式、政策** 十二个维度。覆盖全部 34 个省级行政区（含香港、澳门、台湾）的 64 座主要城市，按地区组织，由 AI agents 定期收集与更新。
 
 比较两个中国城市，最好先明确目的——"适合生活""适合创业""适合工作""适合投资"的结论可能完全不同。本仓库不试图回答"哪个城市绝对更好"，而是提供足够结构化、可比较、带来源的数据，帮助回答：
 
@@ -17,24 +17,23 @@
 
 ```
 .
-├── README.md                 # 本文件：项目说明与状态总览
+├── README.md                 # 本文件：项目说明与全部城市状态总览
 ├── AGENTS.md                 # AI agent 工作手册（维护者必读）
 ├── CHANGELOG.md              # 仓库级更新日志
 ├── cities.yml                # 城市登记表（城市清单与状态的唯一权威来源）
 ├── docs/
 │   ├── methodology.md        # 十二维度比较方法论（指标、评分、权重、一票否决）
 │   └── data-standards.md     # 数据规范（口径、来源优先级、格式、状态标记）
-├── scripts/
-│   └── new-city.sh           # 从模板创建新城市档案
 ├── templates/
-│   └── city/                 # 城市档案模板（README + 12 维度 + sources + meta）
-└── cities/
-    ├── beijing/              # 直辖市直接位于 cities/ 下
+│   └── city/                 # 城市档案空白模板（新增城市时手动复制）
+└── cities/                   # 64 座城市的档案，全部骨架已生成
+    ├── beijing/              # 直辖市与港澳直接位于 cities/ 下
     ├── fujian/
     │   ├── fuzhou/
-    │   └── xiamen/
-    └── guangdong/
-        └── shenzhen/         # 省份/城市 两级目录（已建档示例）
+    │   ├── xiamen/
+    │   └── quanzhou/         # 省份/城市 两级目录
+    └── .../
+        └── <city>/
             ├── README.md     # 城市概览、评分卡、一票否决检查
             ├── 01-economy.md … 12-policy.md
             ├── sources.md    # 该城市的数据来源清单
@@ -60,66 +59,110 @@
 | 11 | 文化、娱乐与生活方式 | `11-lifestyle.md` | 生活节奏与文化氛围合不合拍？ |
 | 12 | 政策与长期不确定性 | `12-policy.md` | 落户、买房、子女入学政策友好且稳定吗？ |
 
-## 城市覆盖与状态
+## 城市总览
 
-`cities.yml` 是城市清单与状态的**唯一权威来源**，本表为人类可读的镜像，由维护 agent 同步更新。
+全部 64 城骨架已生成，点击城市名进入档案。**每次数据更新后，维护 agent 必须同步刷新本表对应行**（完整度 = 已完成维度数 x/12，与该城市 `meta.yml` 一致）。`cities.yml` 是状态的唯一权威来源，本表为人类可读镜像。
 
-状态图例：⚪ 未建档 ｜ 🔴 已建档待填写 ｜ 🟡 部分完成 ｜ 🟢 完整 ｜ ⚠️ 待刷新
+完整度图例：🔴 0/12 待填写 ｜ 🟡 部分完成 ｜ 🟢 12/12 完整 ｜ ⚠️ 数据过期待刷新
 
-### 首批城市（P0）
+### 华北
 
-| 省份 | 城市 | 档案路径 | 状态 | 数据年份 | 最后更新 |
-|------|------|----------|:----:|:--------:|:--------:|
-| 直辖市 | 北京 | `cities/beijing` | ⚪ | — | — |
-| 直辖市 | 上海 | `cities/shanghai` | ⚪ | — | — |
-| 直辖市 | 天津 | `cities/tianjin` | ⚪ | — | — |
-| 直辖市 | 重庆 | `cities/chongqing` | ⚪ | — | — |
-| 广东 | 广州 | `cities/guangdong/guangzhou` | ⚪ | — | — |
-| 广东 | 深圳 | [`cities/guangdong/shenzhen`](cities/guangdong/shenzhen) | 🔴 | — | — |
-| 广东 | 东莞 | `cities/guangdong/dongguan` | ⚪ | — | — |
-| 广东 | 佛山 | `cities/guangdong/foshan` | ⚪ | — | — |
-| 江苏 | 南京 | `cities/jiangsu/nanjing` | ⚪ | — | — |
-| 江苏 | 苏州 | `cities/jiangsu/suzhou` | ⚪ | — | — |
-| 浙江 | 杭州 | `cities/zhejiang/hangzhou` | ⚪ | — | — |
-| 浙江 | 宁波 | `cities/zhejiang/ningbo` | ⚪ | — | — |
-| 福建 | 福州 | `cities/fujian/fuzhou` | ⚪ | — | — |
-| 福建 | 厦门 | `cities/fujian/xiamen` | ⚪ | — | — |
-| 福建 | 泉州 | `cities/fujian/quanzhou` | ⚪ | — | — |
-| 山东 | 青岛 | `cities/shandong/qingdao` | ⚪ | — | — |
-| 四川 | 成都 | `cities/sichuan/chengdu` | ⚪ | — | — |
-| 湖北 | 武汉 | `cities/hubei/wuhan` | ⚪ | — | — |
-| 湖南 | 长沙 | `cities/hunan/changsha` | ⚪ | — | — |
-| 陕西 | 西安 | `cities/shaanxi/xian` | ⚪ | — | — |
-| 河南 | 郑州 | `cities/henan/zhengzhou` | ⚪ | — | — |
-| 安徽 | 合肥 | `cities/anhui/hefei` | ⚪ | — | — |
+| 省份 | 城市 | 完整度 | 最后更新 |
+|------|------|:------:|:--------:|
+| 直辖市 | [北京](cities/beijing) | 🔴 0/12 | — |
+| 直辖市 | [天津](cities/tianjin) | 🔴 0/12 | — |
+| 河北 | [石家庄](cities/hebei/shijiazhuang) | 🔴 0/12 | — |
+| 河北 | [唐山](cities/hebei/tangshan) | 🔴 0/12 | — |
+| 山西 | [太原](cities/shanxi/taiyuan) | 🔴 0/12 | — |
+| 内蒙古 | [呼和浩特](cities/neimenggu/hohhot) | 🔴 0/12 | — |
+| 内蒙古 | [包头](cities/neimenggu/baotou) | 🔴 0/12 | — |
 
-<details>
-<summary><b>扩展城市（P1，点击展开）</b></summary>
+### 东北
 
-| 省份 | 城市 | 档案路径 | 状态 |
-|------|------|----------|:----:|
-| 广东 | 珠海 | `cities/guangdong/zhuhai` | ⚪ |
-| 江苏 | 无锡 | `cities/jiangsu/wuxi` | ⚪ |
-| 江苏 | 常州 | `cities/jiangsu/changzhou` | ⚪ |
-| 江苏 | 徐州 | `cities/jiangsu/xuzhou` | ⚪ |
-| 浙江 | 温州 | `cities/zhejiang/wenzhou` | ⚪ |
-| 山东 | 济南 | `cities/shandong/jinan` | ⚪ |
-| 山东 | 烟台 | `cities/shandong/yantai` | ⚪ |
-| 辽宁 | 大连 | `cities/liaoning/dalian` | ⚪ |
-| 辽宁 | 沈阳 | `cities/liaoning/shenyang` | ⚪ |
-| 黑龙江 | 哈尔滨 | `cities/heilongjiang/harbin` | ⚪ |
-| 吉林 | 长春 | `cities/jilin/changchun` | ⚪ |
-| 河北 | 石家庄 | `cities/hebei/shijiazhuang` | ⚪ |
-| 山西 | 太原 | `cities/shanxi/taiyuan` | ⚪ |
-| 江西 | 南昌 | `cities/jiangxi/nanchang` | ⚪ |
-| 云南 | 昆明 | `cities/yunnan/kunming` | ⚪ |
-| 贵州 | 贵阳 | `cities/guizhou/guiyang` | ⚪ |
-| 广西 | 南宁 | `cities/guangxi/nanning` | ⚪ |
-| 海南 | 海口 | `cities/hainan/haikou` | ⚪ |
-| 甘肃 | 兰州 | `cities/gansu/lanzhou` | ⚪ |
-| 新疆 | 乌鲁木齐 | `cities/xinjiang/urumqi` | ⚪ |
+| 省份 | 城市 | 完整度 | 最后更新 |
+|------|------|:------:|:--------:|
+| 辽宁 | [沈阳](cities/liaoning/shenyang) | 🔴 0/12 | — |
+| 辽宁 | [大连](cities/liaoning/dalian) | 🔴 0/12 | — |
+| 吉林 | [长春](cities/jilin/changchun) | 🔴 0/12 | — |
+| 黑龙江 | [哈尔滨](cities/heilongjiang/harbin) | 🔴 0/12 | — |
 
-</details>
+### 华东
+
+| 省份 | 城市 | 完整度 | 最后更新 |
+|------|------|:------:|:--------:|
+| 直辖市 | [上海](cities/shanghai) | 🔴 0/12 | — |
+| 江苏 | [南京](cities/jiangsu/nanjing) | 🔴 0/12 | — |
+| 江苏 | [苏州](cities/jiangsu/suzhou) | 🔴 0/12 | — |
+| 江苏 | [无锡](cities/jiangsu/wuxi) | 🔴 0/12 | — |
+| 江苏 | [常州](cities/jiangsu/changzhou) | 🔴 0/12 | — |
+| 江苏 | [南通](cities/jiangsu/nantong) | 🔴 0/12 | — |
+| 江苏 | [徐州](cities/jiangsu/xuzhou) | 🔴 0/12 | — |
+| 浙江 | [杭州](cities/zhejiang/hangzhou) | 🔴 0/12 | — |
+| 浙江 | [宁波](cities/zhejiang/ningbo) | 🔴 0/12 | — |
+| 浙江 | [温州](cities/zhejiang/wenzhou) | 🔴 0/12 | — |
+| 浙江 | [嘉兴](cities/zhejiang/jiaxing) | 🔴 0/12 | — |
+| 安徽 | [合肥](cities/anhui/hefei) | 🔴 0/12 | — |
+| 安徽 | [芜湖](cities/anhui/wuhu) | 🔴 0/12 | — |
+| 福建 | [福州](cities/fujian/fuzhou) | 🔴 0/12 | — |
+| 福建 | [厦门](cities/fujian/xiamen) | 🔴 0/12 | — |
+| 福建 | [泉州](cities/fujian/quanzhou) | 🔴 0/12 | — |
+| 江西 | [南昌](cities/jiangxi/nanchang) | 🔴 0/12 | — |
+| 山东 | [济南](cities/shandong/jinan) | 🔴 0/12 | — |
+| 山东 | [青岛](cities/shandong/qingdao) | 🔴 0/12 | — |
+| 山东 | [烟台](cities/shandong/yantai) | 🔴 0/12 | — |
+
+### 中南
+
+| 省份 | 城市 | 完整度 | 最后更新 |
+|------|------|:------:|:--------:|
+| 河南 | [郑州](cities/henan/zhengzhou) | 🔴 0/12 | — |
+| 河南 | [洛阳](cities/henan/luoyang) | 🔴 0/12 | — |
+| 湖北 | [武汉](cities/hubei/wuhan) | 🔴 0/12 | — |
+| 湖北 | [宜昌](cities/hubei/yichang) | 🔴 0/12 | — |
+| 湖南 | [长沙](cities/hunan/changsha) | 🔴 0/12 | — |
+| 广东 | [广州](cities/guangdong/guangzhou) | 🔴 0/12 | — |
+| 广东 | [深圳](cities/guangdong/shenzhen) | 🔴 0/12 | — |
+| 广东 | [东莞](cities/guangdong/dongguan) | 🔴 0/12 | — |
+| 广东 | [佛山](cities/guangdong/foshan) | 🔴 0/12 | — |
+| 广东 | [珠海](cities/guangdong/zhuhai) | 🔴 0/12 | — |
+| 广东 | [惠州](cities/guangdong/huizhou) | 🔴 0/12 | — |
+| 广西 | [南宁](cities/guangxi/nanning) | 🔴 0/12 | — |
+| 广西 | [桂林](cities/guangxi/guilin) | 🔴 0/12 | — |
+| 海南 | [海口](cities/hainan/haikou) | 🔴 0/12 | — |
+| 海南 | [三亚](cities/hainan/sanya) | 🔴 0/12 | — |
+
+### 西南
+
+| 省份 | 城市 | 完整度 | 最后更新 |
+|------|------|:------:|:--------:|
+| 直辖市 | [重庆](cities/chongqing) | 🔴 0/12 | — |
+| 四川 | [成都](cities/sichuan/chengdu) | 🔴 0/12 | — |
+| 四川 | [绵阳](cities/sichuan/mianyang) | 🔴 0/12 | — |
+| 贵州 | [贵阳](cities/guizhou/guiyang) | 🔴 0/12 | — |
+| 云南 | [昆明](cities/yunnan/kunming) | 🔴 0/12 | — |
+| 云南 | [大理](cities/yunnan/dali) | 🔴 0/12 | — |
+| 西藏 | [拉萨](cities/xizang/lhasa) | 🔴 0/12 | — |
+
+### 西北
+
+| 省份 | 城市 | 完整度 | 最后更新 |
+|------|------|:------:|:--------:|
+| 陕西 | [西安](cities/shaanxi/xian) | 🔴 0/12 | — |
+| 甘肃 | [兰州](cities/gansu/lanzhou) | 🔴 0/12 | — |
+| 青海 | [西宁](cities/qinghai/xining) | 🔴 0/12 | — |
+| 宁夏 | [银川](cities/ningxia/yinchuan) | 🔴 0/12 | — |
+| 新疆 | [乌鲁木齐](cities/xinjiang/urumqi) | 🔴 0/12 | — |
+
+### 港澳台
+
+| 地区 | 城市 | 完整度 | 最后更新 |
+|------|------|:------:|:--------:|
+| 香港 | [香港](cities/hongkong) | 🔴 0/12 | — |
+| 澳门 | [澳门](cities/macau) | 🔴 0/12 | — |
+| 台湾 | [台北](cities/taiwan/taipei) | 🔴 0/12 | — |
+| 台湾 | [新竹](cities/taiwan/hsinchu) | 🔴 0/12 | — |
+| 台湾 | [台中](cities/taiwan/taichung) | 🔴 0/12 | — |
+| 台湾 | [高雄](cities/taiwan/kaohsiung) | 🔴 0/12 | — |
 
 ## 数据规范（摘要）
 
@@ -130,10 +173,11 @@
 3. **口径注明**：常住 vs 户籍人口、平均 vs 中位数工资、成交价 vs 挂牌价——口径不同的数字不可直接比较。
 4. **保留历史**：更新时不覆盖旧数据，移入历史表，让每个指标随时间形成趋势。
 5. **宁缺毋假**：找不到的数据留空并标注 `TODO`，严禁编造。
+6. **港澳台适配**：制度差异较大的指标（户籍、公积金、医保、三甲医院等）按当地对应制度填写，不适用时标 `N/A` 并注明当地对应项（如强积金、健保）。
 
 ## 更新机制
 
-本仓库由 AI agents 维护：**不同 agent 认领不同城市**，通过 `cities.yml` 中的 `maintainer` 字段避免冲突，完整流程见 [AGENTS.md](AGENTS.md)。
+本仓库由 AI agents 维护：**不同 agent 认领不同城市**，通过 `cities.yml` 中的 `maintainer` 字段避免冲突，完整流程见 [AGENTS.md](AGENTS.md)。每轮更新收尾时，agent 同步刷新本 README 城市总览表中自己城市的"完整度"和"最后更新"两列。
 
 各维度按变化速度分层刷新，而不是每次全量重写：
 
