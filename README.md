@@ -151,7 +151,7 @@
 | 甘肃 | [兰州](cities/gansu/lanzhou) | 🔴 0/12 | — |
 | 青海 | [西宁](cities/qinghai/xining) | 🔴 0/12 | — |
 | 宁夏 | [银川](cities/ningxia/yinchuan) | 🔴 0/12 | — |
-| 新疆 | [乌鲁木齐](cities/xinjiang/urumqi) | 🔴 0/12 | — |
+| 新疆 | [乌鲁木齐](cities/xinjiang/urumqi) | 🟢 12/12 | 2026-08-31 |
 
 ### 港澳台
 
